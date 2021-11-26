@@ -5,10 +5,9 @@
 using namespace std;
 typedef long long ll;
 
-vector<int> splitStr(string uglyString, string splitKey = " ")
+vector<ll> splitStr(string uglyString, string splitKey = " ")
 {
-    cout << uglyString.length();
-    vector<int> splittedStr{};
+    vector<ll> splittedStr{};
     int start = 0;
     int end = 0;
 
@@ -18,7 +17,7 @@ vector<int> splitStr(string uglyString, string splitKey = " ")
         if (end == -1)
             end = uglyString.length();
         string subStr = uglyString.substr(start, end - start);
-        splittedStr.push_back(stoi(subStr));
+        splittedStr.push_back(stoll(subStr));
         start = end + 1;
     }
 
@@ -28,26 +27,21 @@ vector<int> splitStr(string uglyString, string splitKey = " ")
 vector<vector<ll>> takeInput()
 {
     vector<vector<ll>> inputVector{};
+    string input;
     for (int x = 0; x < 3; ++x)
     {
-        string input;
-        cin >> input;
-        vector<int> converted = splitStr(input);
-        for (auto i : converted)
-        {
-            cout << i << endl;
-        }
-        input = "";
+        getline(cin, input);
+        vector<ll> converted = splitStr(input);
+        inputVector.push_back(converted);
     }
     return inputVector;
 }
 
 int main()
 {
-    int x;
-    for (int i = 0; i < 5; ++i)
+    vector<vector<ll>> inputVector = takeInput();
+    for (auto i : inputVector)
     {
-        cin >> x;
-        cout << x << endl;
+        cout << i[0] << endl;
     }
 }
