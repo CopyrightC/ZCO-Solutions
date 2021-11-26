@@ -1,28 +1,32 @@
 #include <iostream>
+using namespace std;
+#include <algorithm>
 #include <vector>
 
-using namespace std;
-vector<int> vals;
-int getMax(){
-    int max = 0;
-    for(int i=0;i<3;++i){
-        if (vals[i] > max){
-            max = vals[i];
+vector<int> vals{};
+int num;
+int val;
+int main()
+{
+    vector<int> copy{0, 0};
+    cin >> num;
+
+    for (int x = 0; x < num; ++x)
+    {
+        cin >> val;
+        vals.push_back(val);
+    }
+
+    sort(vals.begin(), vals.end(), greater<int>());
+
+    for (int i = 0; i < 3; ++i)
+    {
+        int price = vals[i] * (i + 1);
+        if (price > copy[0])
+        {
+            copy[0] = price;
+            copy[1] = i;
         }
     }
-    return max;
+    cout << vals[copy[1]] << endl;
 }
-
-int main(){
-   int num1,num2,num3;
-   cout<<"Enter three nums " << endl;
-   cin>>num1;
-   cin>>num2;
-   cin>>num3;
-   vals.push_back(num1);
-   vals.push_back(num2);
-   vals.push_back(num3);
-   cout << getMax() <<endl;
-
-}   
-
