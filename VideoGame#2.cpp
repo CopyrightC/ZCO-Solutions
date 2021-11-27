@@ -41,7 +41,7 @@ void solve(vector<vector<ll>> inputVector)
 {
     ll width = inputVector[0][0];
     ll maxHeight = inputVector[0][1];
-    vector<ll> initialStack = inputVector[1];
+    vector<ll> currentStack = inputVector[1];
     vector<ll> commands = inputVector[2];
     int cranePosition = 0; //left most
     bool isHoldingBox = false;
@@ -49,27 +49,26 @@ void solve(vector<vector<ll>> inputVector)
     for (auto command : commands)
     {
         if (command == 1 && cranePosition != 0)
-        {
             --cranePosition;
-        }
 
         else if (command == 2 && (cranePosition != width - 1))
             ++cranePosition;
 
-        else if (command == 3 && !isHoldingBox && (initialStack[cranePosition] != 0))
+        else if (command == 3 && !isHoldingBox && (currentStack[cranePosition] != 0))
         {
-            initialStack[cranePosition] -= 1;
+            currentStack[cranePosition] -= 1;
             isHoldingBox = true;
         }
-        else if (command == 4 && isHoldingBox && (initialStack[cranePosition] <= maxHeight - 1))
+        else if (command == 4 && isHoldingBox && (currentStack[cranePosition] <= maxHeight - 1))
         {
-            initialStack[cranePosition] += 1;
+            currentStack[cranePosition] += 1;
             isHoldingBox = false;
         }
+
         else if (command == 0)
             break;
     }
-    for (auto i : initialStack)
+    for (auto i : currentStack)
         cout << i << " ";
 }
 
