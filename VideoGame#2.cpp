@@ -39,10 +39,10 @@ vector<vector<ll>> takeInput()
 
 void solve(vector<vector<ll>> inputVector)
 {
-    ll width = inputVector[0][0];
-    ll maxHeight = inputVector[0][1];
-    vector<ll> currentStack = inputVector[1];
-    vector<ll> commands = inputVector[2];
+    const ll &width = inputVector[0][0];
+    const ll &maxHeight = inputVector[0][1];
+    vector<ll> &currentStack = inputVector[1];
+    vector<ll> &commands = inputVector[2];
     int cranePosition = 0; //left most
     bool isHoldingBox = false;
 
