@@ -13,11 +13,11 @@ vector<ll> splitStr(string uglyString, string splitKey = " ")
 
     while (start < uglyString.length())
     {
-        end = uglyString.find(splitKey, start);
+        end = uglyString.find(splitKey, start); //locate all whitespaces
         if (end == -1)
-            end = uglyString.length();
-        string subStr = uglyString.substr(start, end - start);
-        splittedStr.push_back(stoll(subStr));
+            end = uglyString.length();                         //for the last word
+        string subStr = uglyString.substr(start, end - start); //slice word
+        splittedStr.push_back(stoll(subStr));                  //covert string to long long and push it to splitStr vector
         start = end + 1;
     }
 
@@ -31,17 +31,50 @@ vector<vector<ll>> takeInput()
     for (int x = 0; x < 3; ++x)
     {
         getline(cin, input);
-        vector<ll> converted = splitStr(input);
-        inputVector.push_back(converted);
+        vector<ll> convertedToLL = splitStr(input);
+        inputVector.push_back(convertedToLL);
     }
     return inputVector;
+}
+
+void solve(vector<vector<ll>> inputVector)
+{
+    ll width = inputVector[0][0];
+    ll maxHeight = inputVector[0][1];
+    vector<ll> initialStack = inputVector[1];
+    vector<ll> commands = inputVector[2];
+    int cranePosition = 0; //left most
+    bool isHoldingBox = false;
+
+    for (auto command : commands)
+    {
+        if (command == 1 && cranePosition != 0)
+        {
+            --cranePosition;
+        }
+
+        else if (command == 2 && (cranePosition != width - 1))
+            ++cranePosition;
+
+        else if (command == 3 && !isHoldingBox && (initialStack[cranePosition] != 0))
+        {
+            initialStack[cranePosition] -= 1;
+            isHoldingBox = true;
+        }
+        else if (command == 4 && isHoldingBox && (initialStack[cranePosition] <= maxHeight - 1))
+        {
+            initialStack[cranePosition] += 1;
+            isHoldingBox = false;
+        }
+        else if (command == 0)
+            break;
+    }
+    for (auto i : initialStack)
+        cout << i << " ";
 }
 
 int main()
 {
     vector<vector<ll>> inputVector = takeInput();
-    for (auto i : inputVector)
-    {
-        cout << i[0] << endl;
-    }
+    solve(inputVector);
 }
