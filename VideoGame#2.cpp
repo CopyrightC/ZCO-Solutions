@@ -4,50 +4,29 @@
 
 using namespace std;
 typedef long long ll;
-
-vector<ll> splitStr(string uglyString, string splitKey = " ")
+ll width;
+ll maxHeight;
+vector<ll> takeInput()
 {
-    vector<ll> splittedStr{};
-    int start = 0;
-    int end = 0;
-
-    while (start < uglyString.length())
+    vector<ll> currentStack{};
+    ll input;
+    cin >> width >> maxHeight;
+    for (int x = 0; x < width; ++x)
     {
-        end = uglyString.find(splitKey, start); //locate all whitespaces
-        if (end == -1)
-            end = uglyString.length();                         //for the last word
-        string subStr = uglyString.substr(start, end - start); //slice word
-        splittedStr.push_back(stoll(subStr));                  //covert string to long long and push it to splitStr vector
-        start = end + 1;
+        cin >> input;
+        currentStack.push_back(input);
     }
-
-    return splittedStr;
+    return currentStack;
 }
 
-vector<vector<ll>> takeInput()
+void solve(vector<ll> currentStack)
 {
-    vector<vector<ll>> inputVector{};
-    string input;
-    for (int x = 0; x < 3; ++x)
-    {
-        getline(cin, input);
-        vector<ll> convertedToLL = splitStr(input);
-        inputVector.push_back(convertedToLL);
-    }
-    return inputVector;
-}
-
-void solve(vector<vector<ll>> inputVector)
-{
-    const ll &width = inputVector[0][0];
-    const ll &maxHeight = inputVector[0][1];
-    vector<ll> &currentStack = inputVector[1];
-    vector<ll> &commands = inputVector[2];
     int cranePosition = 0; //left most
     bool isHoldingBox = false;
-
-    for (auto command : commands)
+    ll command;
+    while (true)
     {
+        cin >> command;
         if (command == 1 && cranePosition != 0)
             --cranePosition;
 
@@ -74,6 +53,6 @@ void solve(vector<vector<ll>> inputVector)
 
 int main()
 {
-    vector<vector<ll>> inputVector = takeInput();
+    vector<ll> inputVector = takeInput();
     solve(inputVector);
 }
