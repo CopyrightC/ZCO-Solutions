@@ -3,11 +3,11 @@ using namespace std;
 #include <algorithm>
 #include <vector>
 
-vector<int> vals{};
-int num;
-int val;
 int main()
 {
+    vector<int> vals{};
+    int num;
+    int val;
     vector<int> copy{0, 0};
     cin >> num;
 
@@ -19,7 +19,7 @@ int main()
 
     sort(vals.begin(), vals.end(), greater<int>());
 
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < num; ++i)
     {
         int price = vals[i] * (i + 1);
         if (price > copy[0])
@@ -28,5 +28,5 @@ int main()
             copy[1] = i;
         }
     }
-    cout << vals[copy[1]] << endl;
+    cout << copy[0] << endl;
 }
